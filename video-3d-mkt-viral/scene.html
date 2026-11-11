@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Gancho Flopou 3D</title>
+<style>
+  @font-face { font-family: Anton; src: url(/node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: Inter; font-weight: 800; src: url(/node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2) format('woff2'); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(/node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2) format('woff2'); }
+  html, body { margin: 0; padding: 0; background: #07061a; overflow: hidden; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  canvas { position: absolute; inset: 0; display: block; }
+  /* Área segura do Reels: y 230..1440, 230px livres à direita */
+  .card { position: absolute; left: 70px; width: 780px; top: 290px; opacity: 0;
+          display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .badge { font: 800 40px/1 Inter, sans-serif; color: #07061a; background: #ffd23f;
+           padding: 14px 30px; border-radius: 999px; margin-bottom: 26px; letter-spacing: 2px;
+           box-shadow: 0 10px 40px rgba(255,210,63,.45); }
+  .h { font-family: Anton, Impact, sans-serif; font-size: 138px; line-height: .98; color: #fff;
+       text-transform: uppercase; letter-spacing: 1px;
+       text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 40px rgba(255,45,120,.55); }
+  .h .w { display: inline-block; margin: 0 12px; will-change: transform; }
+  .hl { color: #ffd23f; text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 46px rgba(255,210,63,.7); }
+  .red { color: #ff2d55; text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 50px rgba(255,45,85,.85); }
+  .cy { color: #22e4ff; text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 46px rgba(34,228,255,.7); }
+  .s { margin-top: 30px; font: 800 52px/1.15 Inter, sans-serif; color: #fff;
+       background: rgba(10,8,30,.82); padding: 16px 30px; border-radius: 22px;
+       border: 2px solid rgba(255,255,255,.14); }
+  .small { font-size: 96px; }
+  #progress { position: absolute; left: 70px; width: 780px; top: 240px; height: 10px;
+              background: rgba(255,255,255,.15); border-radius: 99px; overflow: hidden; }
+  #progress i { display: block; height: 100%; width: 0; border-radius: 99px;
+                background: linear-gradient(90deg, #ff2d78, #ffd23f, #22e4ff); }
+  #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+  #redflash { position: absolute; inset: 0; opacity: 0; pointer-events: none;
+              background: radial-gradient(ellipse at center, rgba(255,0,60,0) 35%, rgba(255,0,60,.75) 100%); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="c" width="1080" height="1920"></canvas>
+  <div id="redflash"></div>
+
+  <!-- 0:00 GANCHO -->
+  <div class="card" data-in="0" data-out="1.35">
+    <div class="h">Seu conteúdo <span class="cy">não</span> flopou.</div>
+  </div>
+  <div class="card" data-in="1.35" data-out="2.8">
+    <div class="h">Seu <span class="red">gancho</span> flopou.</div>
+  </div>
+
+  <!-- 0:02.8 O QUE ESTÁ EM JOGO -->
+  <div class="card" data-in="2.8" data-out="6.6">
+    <div class="h small">O feed decide em</div>
+    <div class="h"><span class="hl">2 segundos</span></div>
+    <div class="s">se fica ou se rola.</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="card" data-in="6.6" data-out="9.7">
+    <div class="badge">GATILHO 1</div>
+    <div class="h">Abre no <span class="red">conflito</span></div>
+    <div class="s">Corta o "oi, gente".</div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card" data-in="9.7" data-out="12.8">
+    <div class="badge">GATILHO 2</div>
+    <div class="h">Vende o <span class="hl">depois</span></div>
+    <div class="s">Não o produto.</div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card" data-in="12.8" data-out="16.6">
+    <div class="badge">GATILHO 3</div>
+    <div class="h">Prova <span class="cy">social</span></div>
+    <div class="s">1 print vale mais que 10 promessas.</div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card" data-in="16.6" data-out="19.7">
+    <div class="badge">GATILHO 4</div>
+    <div class="h">Escassez <span class="red">real</span></div>
+    <div class="s">Prazo real. Vaga real.</div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card" data-in="19.7" data-out="23.6">
+    <div class="badge">O QUE NINGUÉM USA</div>
+    <div class="h">Fecha no <span class="hl">começo</span></div>
+    <div class="s">O loop faz a pessoa ver de novo.</div>
+  </div>
+
+  <!-- CTA + LOOP -->
+  <div class="card" data-in="23.6" data-out="28.0">
+    <div class="h"><span class="hl">Salva</span> e testa</div>
+    <div class="h small">no seu próximo <span class="red">gancho</span></div>
+  </div>
+
+  <div id="progress"><i></i></div>
+  <div id="flash"></div>
+</div>
+<script type="importmap">
+{ "imports": { "three": "/node_modules/three/build/three.module.js",
+               "three/addons/": "/node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="/scene.js"></script>
+</body>
+</html>
