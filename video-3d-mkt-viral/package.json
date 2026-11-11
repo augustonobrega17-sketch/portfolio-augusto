@@ -1,0 +1,14 @@
+{
+  "name": "video-3d-mkt-viral",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "music": "python3 music.py",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "@fontsource/anton": "5.1.0",
+    "@fontsource/inter": "5.1.0",
+    "three": "0.169.0"
+  }
+}
